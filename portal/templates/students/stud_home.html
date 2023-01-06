@@ -1,0 +1,58 @@
+{% extends "students/stud_base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+	<section class="p-5">
+		<div class="container">
+			<div class="row text-center g-4">
+				<div class="col-md">
+					<div class="card">
+						<div class="card-header">
+							Buyers
+						</div>
+						<div class="card-body">
+							<h1 class="card-title">{{buyer_count}}</h1>
+							<p class="card-text">Total buying customers</p>
+							<a href="" class="btn btn-primary">View all buyers</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="card">
+						<div class="card-header">
+							Sellers
+						</div>
+						<div class="card-body">
+							<h1 class="card-title">{{seller_count}}</h1>
+							<p class="card-text">Total registered merchants</p>
+							<a href="" class="btn btn-primary">View all sellers</a>
+						</div>
+
+						<div class="card-body">
+
+							<h1 class="card-title">{{pending_count}}</h1>
+							<p class="card-text">Pending applications</p>
+							<a href="" class="btn btn-primary">View all applications</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="card">
+						<div class="card-header">
+							Products
+						</div>
+						<div class="card-body">
+							<h1 class="card-title">{{product_count}}</h1>
+							<p class="card-text">Total product listings</p>
+							<a href="" class="btn btn-primary">View all products</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
