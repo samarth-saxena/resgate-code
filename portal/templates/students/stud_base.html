@@ -3,28 +3,32 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<div class="container-lg">
-		<a href="" class="navbar-brand">Kyntra <span class="badge bg-secondary">Admin</span></a>
+		<a href="" class="navbar-brand">ResGate <span class="badge bg-secondary">Student</span></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<div class="collapse navbar-collapse" id="#navmenu">
 			<ul class="navbar-nav ms-auto">
+			<!-- <form class="d-flex" role="search">
+				<input class="form-control me-2" type="search" placeholder="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form> -->
+
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'admin_dashboard' %} active {% endif %}">Dashboard</a>
+					<a href="" class="nav-link {% if name  == 'student_home' %} active {% endif %}">Home</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link {% if  name  == 'admin_buyers' %} active {% endif %}">Buyers</a>
+					<a href="{% url 'student_browse' %}" class="nav-link {% if name  == 'student_browse' %} active {% endif %}">Browse</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'admin_sellers' %} active {% endif %}">Sellers</a>
+					<a href="" class="nav-link {% if name  == 'student_labs' %} active {% endif %}">Labs</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'admin_products' %} active {% endif %}">Products</a>
+					<a href="" class="nav-link {% if name  == 'student_domains' %} active {% endif %}">Domains</a>
 				</li>
-				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'admin_logs' %} active {% endif %}">Logs</a>
-				</li>
+
+
 				<li class="nav-item">
 					<a href="" class="nav-link text-danger">Logout</a>
 				</li>
