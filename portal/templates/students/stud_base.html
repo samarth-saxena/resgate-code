@@ -16,16 +16,16 @@
 			</form> -->
 
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'student_home' %} active {% endif %}">Home</a>
+					<a href="{% url 'student_home' %}" class="nav-link {% if name  == 'student_home' %} active {% endif %}">Home</a>
 				</li>
 				<li class="nav-item">
 					<a href="{% url 'student_browse' %}" class="nav-link {% if name  == 'student_browse' %} active {% endif %}">Browse</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'student_labs' %} active {% endif %}">Labs</a>
+					<a href="{% url 'student_lab' %}" class="nav-link {% if name  == 'student_labs' %} active {% endif %}">Labs</a>
 				</li>
 				<li class="nav-item">
-					<a href="" class="nav-link {% if name  == 'student_domains' %} active {% endif %}">Domains</a>
+					<a href="{% url 'student_domain' %}" class="nav-link {% if name  == 'student_domains' %} active {% endif %}">Domain</a>
 				</li>
 
 

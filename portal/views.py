@@ -29,6 +29,12 @@ def student_home(request):
 def student_browse(request):
 	return render(request, 'students/stud_browse.html', {'name':'student_browse'})
 
+def student_domain(request):
+	return render(request, 'students/stud_domain.html', {'name':'student_domain'})
+
+def student_lab(request):
+	return render(request, 'students/stud_lab.html', {'name':'student_lab'})
+
 def prof_home(request):
 	return render(request, 'professors/prof_home.html')
 

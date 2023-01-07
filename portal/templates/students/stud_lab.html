@@ -1,0 +1,64 @@
+{% extends "students/stud_base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<main class="container my-4">
+	<div class="row">
+        <!-- Filters -->
+		<h3 class="mb-4 border-bottom pb-1">Labs</h3>
+
+		<!-- <div class="col-md-3">
+			By Domain
+			<div class="card mb-4">
+				<h6 class="card-header">Domain</h6>
+				<div class="list-group list-group-flush">
+					{% for cat in cats %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						{{cat.category__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+		</div> -->
+
+
+        <div class="col-md-12">
+            <!-- <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Academic Writing Lab</h5>
+                    <h6><a href = "https://www.iiitd.ac.in/syamantak" class="card-link text-muted" > Syamantak Das</a></h6>
+                    <a href="#" class="card-link">Lab Website</a>
+                </div>
+            </div>
+ -->
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                  <div class="card h-65">
+                    <div class="card-body">
+                        <h5><a href="https://midas.iiitd.edu.in" class="text-decoration-none card-link card-title">MIDAS Lab</a></h5>
+                        <h6><a href = "https://www.iiitd.ac.in/rajivratn" class="text-decoration-none card-link" > Rajiv Ratn Shah</a></h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="card-body">
+                        <h5><a href="https://midas.iiitd.edu.in" class="text-decoration-none card-link card-title">MIDAS Lab</a></h5>
+                        <h6><a href = "https://www.iiitd.ac.in/rajivratn" class="text-decoration-none card-link" > Rajiv Ratn Shah</a></h6>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+            
+
+            
+        </div>
+
+		
+	</div>
+</main>
+	
+{% endblock %}

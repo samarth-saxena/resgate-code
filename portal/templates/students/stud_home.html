@@ -3,56 +3,69 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-
-	<section class="p-5">
-		<div class="container">
-			<div class="row text-center g-4">
-				<div class="col-md">
-					<div class="card">
-						<div class="card-header">
-							Buyers
-						</div>
-						<div class="card-body">
-							<h1 class="card-title">{{buyer_count}}</h1>
-							<p class="card-text">Total buying customers</p>
-							<a href="" class="btn btn-primary">View all buyers</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="card">
-						<div class="card-header">
-							Sellers
-						</div>
-						<div class="card-body">
-							<h1 class="card-title">{{seller_count}}</h1>
-							<p class="card-text">Total registered merchants</p>
-							<a href="" class="btn btn-primary">View all sellers</a>
-						</div>
-
-						<div class="card-body">
-
-							<h1 class="card-title">{{pending_count}}</h1>
-							<p class="card-text">Pending applications</p>
-							<a href="" class="btn btn-primary">View all applications</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="card">
-						<div class="card-header">
-							Products
-						</div>
-						<div class="card-body">
-							<h1 class="card-title">{{product_count}}</h1>
-							<p class="card-text">Total product listings</p>
-							<a href="" class="btn btn-primary">View all products</a>
-						</div>
-					</div>
+<main class="container my-4">
+	<div class="row">
+		<!-- Filters -->
+		<div class="col-md-3">
+			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
+			
+			<!-- By Lab -->
+			<div class="card mb-4">
+				<h6 class="card-header">Lab</h6>
+				<div class="list-group list-group-flush">
+					{% for color in colors %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="color" value="{{color.color__id}}" type="checkbox" />&nbsp;
+						<button class="btn" style="background-color: {{color.color__color_code}}; margin-top: -5px;"></button>
+					</li>
+					{% endfor %}
 				</div>
 			</div>
-		</div>
-	</section>
 
+
+			<!-- By Domain -->
+			<div class="card mb-4">
+				<h6 class="card-header">Professor</h6>
+				<div class="list-group list-group-flush">
+					{% for cat in cats %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						{{cat.category__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+
+
+			<!-- By Professor -->
+			<div class="card mb-4">
+				<h6 class="card-header">Domain</h6>
+				<div class="list-group list-group-flush">
+					{% for brand in brands %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="brand" value="{{brand.brand__id}}" type="checkbox" />&nbsp;
+						{{brand.brand__title}}
+					</li>
+					{% endfor %}
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="col-md-9">
+			<!-- Openings -->
+			<h3 class="mb-4 border-bottom pb-1">
+				Openings
+			</h3>
+
+		</div>
+
+
+
+		
+
+		
+	</div>
+</main>
+	
 {% endblock %}
