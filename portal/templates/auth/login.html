@@ -12,6 +12,39 @@
 {% endblock %}
 
 {% block content %}
-<h1>Login</h1>
+
+<section class="p-5">
+	<div class="container">
+		<div class="row text-center g-4">
+			<div class="col-md">
+				<div class="card">
+					<div class="card-header">
+						<h1>Login</h1>
+
+					</div>
+					<!-- <div class="card-body">
+						<h1 class="card-title">{{buyer_count}}</h1>
+						<p class="card-text">Total buying customers</p>
+						<a href="" class="btn btn-primary">View all buyers</a>
+					</div> -->
+					<form method="post" action="{% url 'login' %}">
+						{% csrf_token %}
+						<div class="mb-3">
+						  <label for="username" class="form-label">Username</label>
+						  <input type="username" class="form-control" id="inputUsername" aria-describedby="emailHelp">
+						</div>
+						<div class="mb-3">
+						  <label for="inputPassword" class="form-label">Password</label>
+						  <input type="password" class="form-control" id="inputPassword">
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					  </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
 
 {% endblock %}
