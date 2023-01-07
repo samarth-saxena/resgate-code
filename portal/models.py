@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 # Create your models here.
 class Student(models.Model):
     name = models.CharField(max_length=60)
@@ -56,7 +58,7 @@ class Professor(models.Model):
     #professor (one lab can have many prof, but one prof can have 1 lab only)
     website = models.URLField(max_length=300)
 
-class Openings(models.Model):
+class Projects(models.Model):
     #lab = Lab (one lab can have many openings)
     #professor = Professor (one opening can only have many professor)
     #domain = Domain
@@ -68,7 +70,7 @@ class Openings(models.Model):
         (OPEN, 'Open'),
         (CLOSED, 'Closed'),
     ]
-    status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=OPEN)    
+    status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=OPEN)    #BooleanField().
 
 class Application(models.Model):
     #student = Student
