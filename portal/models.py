@@ -1,13 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 
 # Custom user
 # name
 # email
+class User(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
 # Create your models here.
-class Student(AbstractUser):
+class Student(User):
+
 	name = models.CharField(max_length=60)
 
 	BTECH = 'B'
@@ -46,7 +50,7 @@ class Student(AbstractUser):
 	
 class Resume(models.Model):
 	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
-	student = models.ForeignKey(Student, related_name='resumes')
+	student = models.ForeignKey(Student, related_name='resumes', on_delete=models.CASCADE)
 
 class Lab(models.Model):
 	name = models.CharField(max_length=100)
@@ -69,7 +73,7 @@ class Projects(models.Model):
 	# ]
 	# status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=OPEN)    #BooleanField().
 
-class Professor(AbstractUser):
+class Professor(User):
 	name = models.CharField(max_length=60)
 	email = models.EmailField(max_length = 254)
 	website = models.URLField(max_length=300)
@@ -81,9 +85,9 @@ class Professor(AbstractUser):
 
 class Application(models.Model):
 	openingDate = models.DateField()
-	student = models.ForeignKey(Student, related_name='applications')
-	project = models.ForeignKey(Projects, related_name='applications')
-	resume = models.ForeignKey(Resume, related_name='applications')
+	student = models.ForeignKey(Student, related_name='applications', on_delete=models.CASCADE)
+	project = models.ForeignKey(Projects, related_name='applications', on_delete=models.CASCADE)
+	resume = models.ForeignKey(Resume, related_name='applications', on_delete=models.CASCADE)
 
 	PENDING = 'P'
 	REJECTED = 'R'

@@ -14,4 +14,10 @@
 {% block content %}
 <h1>Signup</h1>
 
+<form method="POST">
+	{% csrf_token %}
+	{{ signup_form }}                    
+	<button class="btn btn-primary" type="submit">Register</button>
+</form>
+
 {% endblock %}
