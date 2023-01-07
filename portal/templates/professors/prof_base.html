@@ -3,7 +3,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<div class="container-lg">
-		<a href="" class="navbar-brand">ResGate <span class="badge bg-secondary">Professor</span></a>
+		<a href="{% url 'prof_home' %}" class="navbar-brand">ResGate <span class="badge bg-secondary">Professor</span></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -11,16 +11,19 @@
 		<div class="collapse navbar-collapse" id="#navmenu">
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
-					<a href="{% url prof_home %}" class="nav-link {% if name  == 'prof_home' %} active {% endif %}">Home</a>
+					<a href="{% url 'prof_home' %}" class="nav-link {% if name  == 'prof_home' %} active {% endif %}">Home</a>
 				</li>
 				<li class="nav-item">
-					<a href="{% url prof_students %}" class="nav-link {% if  name  == 'prof_students' %} active {% endif %}">Students</a>
+					<a href="{% url 'prof_students' %}" class="nav-link {% if  name  == 'prof_students' %} active {% endif %}">Students</a>
 				</li>
 				<li class="nav-item">
-					<a href="{% url prof_projects %}" class="nav-link {% if name  == 'prof_projects' %} active {% endif %}">Projects</a>
+					<a href="{% url 'prof_projects' %}" class="nav-link {% if name  == 'prof_projects' %} active {% endif %}">Projects</a>
 				</li>
 				<li class="nav-item">
-					<a href="{% url logout %}" class="nav-link text-danger">Logout</a>
+					<a href="{% url 'prof_profile' %}" class="nav-link {% if name  == 'prof_profile' %} active {% endif %}">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a href="{% url 'logout' %}" class="nav-link text-danger">Logout</a>
 				</li>
 			</ul>
 		</div>

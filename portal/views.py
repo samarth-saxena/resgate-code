@@ -78,8 +78,10 @@ def prof_projects(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
 	return render(request, 'professors/prof_projects.html')
 
-
 def prof_students(request):
 	# return HttpResponse("Listings of all current students working")
 	return render(request, 'professors/prof_students.html')
 
+def prof_profile(request):
+	# return HttpResponse("Listings of all current projects, and add new projects")
+	return render(request, 'professors/prof_profile.html')

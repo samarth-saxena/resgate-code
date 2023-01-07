@@ -13,9 +13,11 @@ urlpatterns = [
 	path('student/lab/',views.student_lab, name='student_lab'),
 	path('student/profile/',views.student_profile, name='student_profile'),
 
-	path('prof/',views.prof_home, name='prof_home'), # recommended applications
-	path('prof/students',views.prof_students, name='prof_students'), # current students
-	path('prof/projects',views.prof_projects, name='prof_projects'), # my openings, add new openings
+	path('professor/',views.prof_home, name='prof_home'), # recommended applications
+	path('professor/students',views.prof_students, name='prof_students'), # current students
+	path('professor/projects',views.prof_projects, name='prof_projects'), # my openings, add new openings
+	path('professor/profile',views.prof_profile, name='prof_profile'), # my openings, add new openings
+
 
 
 ]
