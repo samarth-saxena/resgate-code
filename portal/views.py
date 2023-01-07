@@ -68,6 +68,9 @@ def student_domain(request):
 def student_lab(request):
 	return render(request, 'students/stud_lab.html', {'name':'student_lab'})
 
+def student_profile(request):
+	return render(request, 'students/stud_profile.html', {'name':'student_profile'})
+
 def prof_home(request):
 	return render(request, 'professors/prof_home.html')
 

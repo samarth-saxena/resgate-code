@@ -1,0 +1,40 @@
+{% extends "students/stud_base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<main class="container my-4">
+	<div class="row">
+        <h3 class="mb-4 border-bottom pb-1">Profile</h3>
+        
+        <div class="col-md-3">			
+			<div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/portal/templates/students/image.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Samarth Saxena</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">CSD BTech 2019</h6>
+                  <p><a href = "mailto: samarth19328@iiitd.ac.in" class="text-decoration-none card-link" > samarth19328@iiitd.ac.in</a></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item text-decoration-underline">Tags</li>
+                  <li class="list-group-item">Computer Vision, Machine Learning</li>
+                </ul>
+              </div>
+        </div>
+
+        <div class="col-md-3">			
+			<label class="form-label" for="customFile">Upload Resume</label>
+            <input type="file" class="form-control" id="customFile" />
+            <p class = "pb-3"></p>
+
+            <ul>
+                <li >Dapibus ac facilisis in</li>
+                <li >Morbi leo risus</li>
+                <li>Porta ac consectetur ac</li>
+                <li>Vestibulum at eros</li>
+              </ul>
+        </div>
+	</div>
+</main>
+	
+{% endblock %}

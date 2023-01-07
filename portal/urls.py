@@ -11,6 +11,7 @@ urlpatterns = [
 	path('student/browse/',views.student_browse, name='student_browse'),
 	path('student/domain/',views.student_domain, name='student_domain'),
 	path('student/lab/',views.student_lab, name='student_lab'),
+	path('student/profile/',views.student_profile, name='student_profile'),
 
 	path('prof/',views.prof_home, name='prof_home'), # recommended applications
 	path('prof/students',views.prof_students, name='prof_students'), # current students
