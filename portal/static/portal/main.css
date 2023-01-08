@@ -1,0 +1,13 @@
+
+.btn-primary {
+  background-color: #185abc;
+  outline: none;
+}
+
+.navbar-custom{
+  background-color: #202124;
+}
+
+.card-body-custom{
+  background: url("/static/portal/image.jpg") 
+}

@@ -1,5 +1,5 @@
 {% extends "students/stud_base.html" %}
-
+{% load static %}
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -7,16 +7,18 @@
 	<div class="row">
 		<!-- Filters -->
 		<div class="col-md-3">
-			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
-			
+			<h3 class="mb-4 pb-1">Filters</h3>
+
 			<!-- By Lab -->
 			<div class="card mb-4">
 				<h6 class="card-header">Lab</h6>
 				<div class="list-group list-group-flush">
 					{% for color in colors %}
 					<li class="list-group-item">
-						<input class="filter-checkbox" data-filter="color" value="{{color.color__id}}" type="checkbox" />&nbsp;
-						<button class="btn" style="background-color: {{color.color__color_code}}; margin-top: -5px;"></button>
+						<input class="filter-checkbox" data-filter="color" value="{{color.color__id}}"
+							type="checkbox" />&nbsp;
+						<button class="btn"
+							style="background-color: {{color.color__color_code}}; margin-top: -5px;"></button>
 					</li>
 					{% endfor %}
 				</div>
@@ -29,7 +31,8 @@
 				<div class="list-group list-group-flush">
 					{% for cat in cats %}
 					<li class="list-group-item">
-						<input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="category" value="{{cat.category__id}}"
+							type="checkbox" />&nbsp;
 						{{cat.category__title}}
 					</li>
 					{% endfor %}
@@ -43,29 +46,96 @@
 				<div class="list-group list-group-flush">
 					{% for brand in brands %}
 					<li class="list-group-item">
-						<input class="filter-checkbox" data-filter="brand" value="{{brand.brand__id}}" type="checkbox" />&nbsp;
+						<input class="filter-checkbox" data-filter="brand" value="{{brand.brand__id}}"
+							type="checkbox" />&nbsp;
 						{{brand.brand__title}}
 					</li>
 					{% endfor %}
 				</div>
 			</div>
-			
+
 		</div>
 
 		<div class="col-md-9">
 			<!-- Openings -->
-			<h3 class="mb-4 border-bottom pb-1">
+			<h3 class="mb-4 pb-1 pl-3">
 				Openings
 			</h3>
+
+			<div class="col-sm-12 p-0">
+				<div class="card border-0 mb-3">
+					<div class="card-body">
+						<h5 class="card-title">Multimodal Models Integration</h5>
+						<p class="card-text">Building transformers based multimodal models integrating testing, strains,
+							mobility and social media datasets. We have had exciting learnings and features from this
+							semester and you’ll be working in smaller teams. </p>
+						<p><span class="badge badge-dark">Natural Language Processing</span></p>
+						<a href="#" class="btn btn-primary">Apply &nbsp <i
+								class="fa-solid fa-arrow-up-right-from-square"></i></a>
+					</div>
+				</div>
+				<p class="border-bottom "></p>
+			</div>
+
+			<div class="col-sm-12 p-0">
+				<div class="card border-0 mb-3">
+					<div class="card-body">
+						<h5 class="card-title">Event MMKG</h5>
+						<p class="card-text">Considering students for constructing an MMKG with multiple modalities.
+							could be done in one IP/IS. Though it could be extended to further IP/IS or consider a BTP
+							from the start </p>
+						<p><span class="badge badge-dark">Artificial Intelligence</span> <span
+								class="badge badge-dark">Python</span></p>
+						<a href="#" class="btn btn-primary">Apply &nbsp <i
+								class="fa-solid fa-arrow-up-right-from-square"></i></a>
+					</div>
+				</div>
+				<p class="border-bottom "></p>
+			</div>
+
+			<div class="col-sm-12 p-0">
+				<div class="card border-0 mb-3">
+					<div class="card-body">
+						<h5 class="card-title">Visual Question Answering 
+						</h5>
+						<p class="card-text">VQA is a multimodal task that involves understanding both visual and
+							linguistic inputs and using that knowledge to generate a natural language answer. In a VQA
+							task, a model is presented with an image and a question about the image in natural language.
+							The model must then use its multimodal knowledge to generate a natural language answer. </p>
+						<p><span class="badge badge-dark">Natural Language Processing</span> <span
+								class="badge badge-dark">Computer Vision</span> </p>
+
+						<a href="#" class="btn btn-primary">Apply &nbsp <i
+								class="fa-solid fa-arrow-up-right-from-square"></i></a>
+					</div>
+				</div>
+				<p class="border-bottom "></p>
+			</div>
+
+			<div class="col-sm-12 p-0">
+				<div class="card border-0 mb-3">
+					<div class="card-body">
+						<h5 class="card-title">Event MMKG</h5>
+						<p class="card-text">Considering students for constructing an MMKG with multiple modalities.
+							could be done in one IP/IS. Though it could be extended to further IP/IS or consider a BTP
+							from the start </p>
+						<p><span class="badge badge-dark">Artificial Intelligence </span> <span
+								class="badge badge-dark">Python</span></p>
+						<a href="#" class="btn btn-primary">Apply &nbsp <i
+								class="fa-solid fa-arrow-up-right-from-square"></i></a>
+					</div>
+				</div>
+				<p class="border-bottom "></p>
+			</div>
 
 		</div>
 
 
 
-		
 
-		
+
+
 	</div>
 </main>
-	
+
 {% endblock %}
