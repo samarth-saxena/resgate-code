@@ -5,7 +5,7 @@
 {% block content %}
 <main class="container my-4">
 	<div class="row">
-        <!-- Filters -->
+		<!-- Filters -->
 		<h3 class="mb-4 border-bottom pb-1">Labs</h3>
 
 		<!-- <div class="col-md-3">
@@ -24,8 +24,8 @@
 		</div> -->
 
 
-        <div class="col-md-12">
-            <!-- <div class="card" style="width: 18rem;">
+		<div class="col-md-12">
+			<!-- <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Academic Writing Lab</h5>
                     <h6><a href = "https://www.iiitd.ac.in/syamantak" class="card-link text-muted" > Syamantak Das</a></h6>
@@ -33,32 +33,28 @@
                 </div>
             </div>
  -->
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                <div class="col">
-                  <div class="card h-65">
-                    <div class="card-body">
-                        <h5><a href="https://midas.iiitd.edu.in" class="text-decoration-none card-link card-title">MIDAS Lab</a></h5>
-                        <h6><a href = "https://www.iiitd.ac.in/rajivratn" class="text-decoration-none card-link" > Rajiv Ratn Shah</a></h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card h-100">
-                    <div class="card-body">
-                        <h5><a href="https://midas.iiitd.edu.in" class="text-decoration-none card-link card-title">MIDAS Lab</a></h5>
-                        <h6><a href = "https://www.iiitd.ac.in/rajivratn" class="text-decoration-none card-link" > Rajiv Ratn Shah</a></h6>
-                    </div>
-                  </div>
-                </div>
-        
-              </div>
-            
+			<div class="row row-cols-1 row-cols-md-4 g-4">
+				{% for lab in labs %}
+				<div class="col">
+					<div class="card h-65">
+						<div class="card-body">
+							<h5><a href="" class="text-decoration-none card-link card-title">{{ lab.name }}</a></h5>
+							<h6><a href="{{ lab.website }}" class="text-decoration-none card-link"> Go to Website </a>
+							</h6>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
 
-            
-        </div>
 
-		
+			</div>
+
+
+
+		</div>
+
+
 	</div>
 </main>
-	
+
 {% endblock %}

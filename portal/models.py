@@ -62,9 +62,11 @@ class Domain(models.Model):
 
 
 class Projects(models.Model):
+	#TODO add title
 	description = models.TextField(max_length=5000)
 	available = models.BooleanField()
 	domain = models.ManyToManyField(Domain, related_name='projects')
+	#TODO add skills
 
 	# OPEN = 'O'
 	# CLOSED = 'C'

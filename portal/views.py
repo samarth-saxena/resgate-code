@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import StudentSignupForm, ProfessorSignupForm, ProfAddProjectsForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from portal.models import UserProfile, Student, Professor
+from portal.models import UserProfile, Student, Professor, Lab, Domain, Projects
 
 
 # def login_view(request):
@@ -124,7 +124,12 @@ def student_home(request):
 
 def student_browse(request):
 	if check_student(request):
-		return render(request, 'students/stud_browse.html', {'name':'student_browse'})
+		openings = Projects.objects.all()
+
+		return render(request, 'students/stud_browse.html', {
+			'name':'student_browse',
+			'openings':openings,
+			})
 	else:
 		return redirect_user(request)		
 
@@ -136,7 +141,12 @@ def student_domain(request):
 
 def student_lab(request):
 	if check_student(request):
-		return render(request, 'students/stud_lab.html', {'name':'student_lab'})
+		# labs = []
+		labs = Lab.objects.all()
+		return render(request, 'students/stud_lab.html', {
+			'name':'student_lab',
+			'labs': labs,
+			})
 	else:
 		return redirect_user(request)
 
