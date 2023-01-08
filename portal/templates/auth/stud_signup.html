@@ -4,7 +4,9 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
 	<div class="container-lg">
 		<a href="" class="navbar-brand">ResGate </a>
-
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 	</div>
 </nav>
 {% endblock %}
@@ -17,21 +19,22 @@
 			<div class="col-md">
 				<div class="card">
 					<div class="card-header">
-						<h1>Redirect to...</h1>
+						<h1>Signup as Student</h1>
 
 					</div>
 
 					<div class="container py-5">
-						<p>Login (if not authenticated)</p>
-						<p>Student home (if student)</p>
-						<p>Prof home (if prof)</p>
+						<form method="POST">
+							{% csrf_token %}
+							{{ stud_signup_form.as_p }}
+							<button class="btn btn-primary" type="submit">Register</button>
+						</form>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
-
 
 {% endblock %}

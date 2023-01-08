@@ -25,12 +25,16 @@
 
 					<div class="container py-5">
 						<form method="POST">
-						  {% csrf_token %}
-						  {{ login_form }}
-						  <button class="btn btn-primary" type="submit">Login</button>
+							{% csrf_token %}
+							{{ login_form }}
+							<button class="btn btn-primary" type="submit">Login</button>
 						</form>
-						<p class="text-center">Don't have an account? <a href="/signup">Create an account</a>.</p>
-					  </div>
+						<br>
+						<p class="text-center">Don't have an account?</p>
+						<a href="{% url 'student_signup' %}" class="btn btn-secondary">Signup as student</a>
+						<!-- <p>or</p> -->
+						<a href="{% url 'prof_signup' %}" class="btn btn-secondary">Signup as professor</a>
+					</div>
 				</div>
 			</div>
 		</div>

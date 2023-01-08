@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http.response import Http404, HttpResponseBase
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm
+from .forms import StudentSignupForm, ProfessorSignupForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from portal.models import UserProfile, Student, Professor
+
 
 # def login_view(request):
 #     if request.method == 'POST':
@@ -19,6 +22,48 @@ from django.contrib.auth.forms import AuthenticationForm
 #     else:
 #         return render(request, 'auth/login.html')
 
+def landing(request):
+	# return render(request, 'auth/landing.html')
+	return redirect_user(request)
+
+def check_student(request):
+    if request.user.is_authenticated:
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+            return user_profile.is_Student
+
+        except UserProfile.DoesNotExist:
+            raise Http404()
+    else:
+        return False
+
+def check_professor(request):
+    if request.user.is_authenticated:
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+            return user_profile.is_Professor
+
+        except UserProfile.DoesNotExist:
+            raise Http404()
+    else:
+        return False
+
+def redirect_user(request):
+	if request.user.is_authenticated:
+		try:
+			user_profile = UserProfile.objects.get(user=request.user)
+			# if user_profile.is_verified:
+			if user_profile.is_Student:
+				return redirect('student_home')
+			elif user_profile.is_Professor:
+				return redirect('prof_home')
+			else:
+				return redirect('login')
+		except UserProfile.DoesNotExist:
+			raise Http404()
+	else:
+		return redirect('login')
+
 def login_view(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
@@ -29,7 +74,8 @@ def login_view(request):
 			if user is not None:
 				login(request, user)
 				messages.info(request, "You are now logged in as {username}.")
-				return redirect("student_home")
+				return redirect_user(request)
+
 			else:
 				messages.error(request,"Invalid username or password.")
 		else:
@@ -38,50 +84,93 @@ def login_view(request):
 	return render(request=request, template_name="auth/login.html", context={"login_form":form})
 
 def logout_view(request):
-    logout(request)
-    return redirect('login')
+	logout(request)
+	return redirect('login')
 
-# def signup_view(request):
-#     return render(request, 'auth/signup.html')
-
-def signup_view(request):
+def student_signup(request):
 	if request.method == "POST":
-		form = SignupForm(request.POST)
+		form = StudentSignupForm(request.POST)
 		if form.is_valid():
 			user = form.save()
+			user.refresh_from_db()
+			user.save()
+			Student.objects.create(user=user,is_Student=True)
 			login(request, user)
 			messages.success(request, "Signup successful." )
 			return redirect("student_home")
 		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = SignupForm()
-	return render (request=request, template_name="auth/signup.html", context={"signup_form":form})
+	form = StudentSignupForm()
+	return render (request=request, template_name="auth/stud_signup.html", context={"stud_signup_form":form})
+
+def professor_signup(request):
+	if request.method == "POST":
+		form = ProfessorSignupForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			Professor.objects.create(user=user,is_Professor=True)
+			login(request, user)
+			messages.success(request, "Signup successful." )
+			return redirect("prof_home")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = ProfessorSignupForm()
+	return render (request=request, template_name="auth/prof_signup.html", context={"prof_signup_form":form})
+
 
 def student_home(request):
-	return render(request, 'students/stud_home.html')
+	if check_student(request):
+		return render(request, 'students/stud_home.html')
+	else:
+		return redirect_user(request)
 
 def student_browse(request):
-	return render(request, 'students/stud_browse.html', {'name':'student_browse'})
+	if check_student(request):
+		return render(request, 'students/stud_browse.html', {'name':'student_browse'})
+	else:
+		return redirect_user(request)		
 
 def student_domain(request):
-	return render(request, 'students/stud_domain.html', {'name':'student_domain'})
+	if check_student(request):
+		return render(request, 'students/stud_domain.html', {'name':'student_domain'})
+	else:
+		return redirect_user(request)
 
 def student_lab(request):
-	return render(request, 'students/stud_lab.html', {'name':'student_lab'})
+	if check_student(request):
+		return render(request, 'students/stud_lab.html', {'name':'student_lab'})
+	else:
+		return redirect_user(request)
 
 def student_profile(request):
-	return render(request, 'students/stud_profile.html', {'name':'student_profile'})
+	if check_student(request):
+		return render(request, 'students/stud_profile.html', {'name':'student_profile'})
+	else:
+		return redirect_user(request)
 
+
+# PROFESSOR
 def prof_home(request):
-	return render(request, 'professors/prof_home.html')
+	if check_professor(request):
+		return render(request, 'professors/prof_home.html')
+	else:
+		return redirect_user(request)
 
 def prof_projects(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
-	return render(request, 'professors/prof_projects.html')
+	if check_professor(request):
+		return render(request, 'professors/prof_projects.html')
+	else:
+		return redirect_user(request)
 
 def prof_students(request):
 	# return HttpResponse("Listings of all current students working")
-	return render(request, 'professors/prof_students.html')
+	if check_professor(request):
+		return render(request, 'professors/prof_students.html')
+	else:
+		return redirect_user(request)
 
 def prof_profile(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
-	return render(request, 'professors/prof_profile.html')
+	if check_professor(request):
+		return render(request, 'professors/prof_profile.html')
+	else:
+		return redirect_user(request)

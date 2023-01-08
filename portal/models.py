@@ -5,14 +5,16 @@ from django.conf import settings
 # Custom user
 # name
 # email
-class User(models.Model):
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
+class UserProfile(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,blank=False,null=True)
+	# name = models.CharField(max_length=60)
+	# email = models.EmailField(max_length = 254)
+	is_Student = models.BooleanField(default=False)
+	is_Professor = models.BooleanField(default=False)
 
 # Create your models here.
-class Student(User):
+class Student(UserProfile):
 
-	name = models.CharField(max_length=60)
 
 	BTECH = 'B'
 	MTECH = 'M'
@@ -45,8 +47,7 @@ class Student(User):
 	branch = models.CharField(max_length=4,choices=BRANCH_CHOICES,default=CSE) 
 
 	batch = models.IntegerField(default=2022)
-	email = models.EmailField(max_length = 254)
-	tags = models.JSONField()
+	tags = models.JSONField(null=True)
 	
 class Resume(models.Model):
 	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
@@ -73,21 +74,19 @@ class Projects(models.Model):
 	# ]
 	# status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=OPEN)    #BooleanField().
 
-class Professor(User):
-	name = models.CharField(max_length=60)
-	email = models.EmailField(max_length = 254)
+class Professor(UserProfile):
 	website = models.URLField(max_length=300)
-	interests = models.TextField(max_length=2000)
+	interests = models.JSONField(null=True)
 
-	lab = models.ForeignKey(Lab, related_name='profs', on_delete=models.SET_NULL,blank=True,null=True)
+	lab = models.ForeignKey(Lab, related_name='profs', on_delete=models.SET_NULL,blank=False,null=True)
 	projects = models.ManyToManyField(Projects, related_name='profs')
 
 
 class Application(models.Model):
 	openingDate = models.DateField()
-	student = models.ForeignKey(Student, related_name='applications', on_delete=models.CASCADE)
-	project = models.ForeignKey(Projects, related_name='applications', on_delete=models.CASCADE)
-	resume = models.ForeignKey(Resume, related_name='applications', on_delete=models.CASCADE)
+	student = models.ForeignKey(Student, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
+	project = models.ForeignKey(Projects, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
+	resume = models.ForeignKey(Resume, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
 
 	PENDING = 'P'
 	REJECTED = 'R'
