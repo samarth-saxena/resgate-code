@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http.response import Http404, HttpResponseBase
 from django.contrib.auth import authenticate, login, logout
-from .forms import StudentSignupForm, ProfessorSignupForm
+from .forms import StudentSignupForm, ProfessorSignupForm, ProfAddProjectsForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from portal.models import UserProfile, Student, Professor
@@ -27,26 +27,26 @@ def landing(request):
 	return redirect_user(request)
 
 def check_student(request):
-    if request.user.is_authenticated:
-        try:
-            user_profile = UserProfile.objects.get(user=request.user)
-            return user_profile.is_Student
+	if request.user.is_authenticated:
+		try:
+			user_profile = UserProfile.objects.get(user=request.user)
+			return user_profile.is_Student
 
-        except UserProfile.DoesNotExist:
-            raise Http404()
-    else:
-        return False
+		except UserProfile.DoesNotExist:
+			raise Http404()
+	else:
+		return False
 
 def check_professor(request):
-    if request.user.is_authenticated:
-        try:
-            user_profile = UserProfile.objects.get(user=request.user)
-            return user_profile.is_Professor
+	if request.user.is_authenticated:
+		try:
+			user_profile = UserProfile.objects.get(user=request.user)
+			return user_profile.is_Professor
 
-        except UserProfile.DoesNotExist:
-            raise Http404()
-    else:
-        return False
+		except UserProfile.DoesNotExist:
+			raise Http404()
+	else:
+		return False
 
 def redirect_user(request):
 	if request.user.is_authenticated:
@@ -157,7 +157,9 @@ def prof_home(request):
 def prof_projects(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
 	if check_professor(request):
-		return render(request, 'professors/prof_projects.html')
+		form = ProfAddProjectsForm()
+
+		return render(request, 'professors/prof_projects.html',{'form':form})
 	else:
 		return redirect_user(request)
 
@@ -172,5 +174,32 @@ def prof_profile(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
 	if check_professor(request):
 		return render(request, 'professors/prof_profile.html')
+	else:
+		return redirect_user(request)
+
+def prof_addproject(request):
+	if check_professor(request):
+		# if this is a POST request we need to process the form data
+		if request.method == 'POST':
+			# create a form instance and populate it with data from the request:
+			form = ProfAddProjectsForm(request.POST,request.FILES)
+			# check whether it's valid:
+			if form.is_valid():
+				project = form.save()
+				project.save()
+
+				# process the data in form.cleaned_data as required
+				# ...
+				# redirect to a new URL:
+				return redirect('admin_products')
+
+		# if a GET (or any other method) we'll create a blank form
+			# remove
+		# else:
+			# add line in admin products
+			# form = AdminAddProductsForm()
+
+		# return render(request, 'admin/name.html', {'form': form})
+		return prof_projects(request)
 	else:
 		return redirect_user(request)

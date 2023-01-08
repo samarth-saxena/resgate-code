@@ -19,7 +19,5 @@ urlpatterns = [
 	path('professor/students',views.prof_students, name='prof_students'), # current students
 	path('professor/projects',views.prof_projects, name='prof_projects'), # my openings, add new openings
 	path('professor/profile',views.prof_profile, name='prof_profile'), # my openings, add new openings
-
-
-
+	path('professor/addproject',views.prof_addproject, name='prof_addproject'), # my openings, add new openings
 ]
