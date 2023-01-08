@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 	# email = models.EmailField(max_length = 254)
 	is_Student = models.BooleanField(default=False)
 	is_Professor = models.BooleanField(default=False)
+	
 
 # Create your models here.
 class Student(UserProfile):
@@ -48,6 +49,7 @@ class Student(UserProfile):
 
 	batch = models.IntegerField(default=2022)
 	tags = models.JSONField(null=True)
+	resume = models.FileField(upload_to='uploads/%Y/%m/%d/',null=True,blank=True)
 	
 class Resume(models.Model):
 	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
@@ -59,6 +61,9 @@ class Lab(models.Model):
 
 class Domain(models.Model):
 	title = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.title
 
 
 class Projects(models.Model):

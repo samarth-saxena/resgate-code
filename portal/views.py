@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.http.response import Http404, HttpResponseBase
 from django.contrib.auth import authenticate, login, logout
 from .forms import StudentSignupForm, ProfessorSignupForm, ProfAddProjectsForm
@@ -7,6 +7,35 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from portal.models import UserProfile, Student, Professor, Lab, Domain, Projects
 
+from .serializers import ProjectSerializer
+from ..scripts.utils import *
+from ..scripts import recommender
+
+
+# regular functions
+def get_projects_dict():
+	
+	projects = list(Projects.objects.all())
+	projects_dict = []
+	
+	for project in projects:
+		ser_proj = ProjectSerializer(project).data
+		domains = []
+		for domain_id in ser_proj['domains']:
+			domains.append(Domain.objects.get(domain_id).title)
+		ser_proj['domains'] = domains
+		projects_dict.append(ser_proj)
+	
+	return projects_dict
+
+def get_project_from_dict(projects):
+	project_objs = []
+	scores = []
+	for proj in projects:
+		project_objs.append(Projects.objects.get(title=proj[0]['title']))
+		scores.append(int(100*(1-proj[1])))
+	
+	return project_objs, scores
 
 # def login_view(request):
 #     if request.method == 'POST':
@@ -118,7 +147,22 @@ def professor_signup(request):
 
 def student_home(request):
 	if check_student(request):
-		return render(request, 'students/stud_home.html')
+		# retrieving projects
+		projects = get_projects_dict()
+		student = Student.objects.get(user=request.user)
+		
+		final_recs = Projects.objects.all()
+		scores = []
+		if student.resume is not None:
+			student_resume_url = student.resume.url
+			rec_projects = recommender.top_picks(pdf_url=student_resume_url,projects=projects)
+			final_recs, scores = get_project_from_dict(rec_projects)
+		
+		context = {
+			'recommendations': final_recs,
+			'scores': scores
+		}
+		return render(request, 'students/stud_home.html',context)
 	else:
 		return redirect_user(request)
 
