@@ -8,8 +8,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from portal.models import UserProfile, Student, Professor, Lab, Domain, Projects
 
 from .serializers import ProjectSerializer
-from ..scripts.utils import *
-from ..scripts import recommender
+from scripts.utils import *
+from scripts import recommender
 
 
 # regular functions
