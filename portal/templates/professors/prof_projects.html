@@ -3,13 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+{% load crispy_forms_tags %} 
+
 <main class="container my-4">
 	<div class="row">
 		<h3 class="mb-4 pb-1">Openings</h3>
 
 		<div class="col-md-3">
 
-			<button type="button" class="btn btn-dark mb-3" data-bs-toggle="modal" data-bs-target="#addProject"> <i class="fa-solid fa-plus"></i> Add New Opening</button>
+			<button type="button" class="btn btn-dark mb-3" data-bs-toggle="modal" data-bs-target="#addProject"> <i
+					class="fa-solid fa-plus"></i> Add New Opening</button>
 		</div>
 	</div>
 
@@ -32,16 +35,39 @@
 		<div class="col-sm-6 pb-3">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">Visual Question Answering 
+					<h5 class="card-title">Visual Question Answering
 					</h5>
-					<p class="card-text">VQA is a multimodal task that involves understanding both visual and linguistic inputs and using that knowledge to generate a natural language answer. In a VQA task, a model is presented with an image and a question about the image in natural language. The model must then use its multimodal knowledge to generate a natural language answer.  </p>
-					<p><span class="badge badge-dark">Natural Language Processing</span> <span class="badge badge-dark">Computer Vision</span> </p>
-					
+					<p class="card-text">VQA is a multimodal task that involves understanding both visual and linguistic
+						inputs and using that knowledge to generate a natural language answer. In a VQA task, a model is
+						presented with an image and a question about the image in natural language. The model must then
+						use its multimodal knowledge to generate a natural language answer. </p>
+					<p><span class="badge badge-dark">Natural Language Processing</span> <span
+							class="badge badge-dark">Computer Vision</span> </p>
+
 					<a href="#" class="btn btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i> </a>
 					<a href="#" class="btn btn-light">Close </a>
 				</div>
 			</div>
 		</div>
+
+		{% comment %}
+		{% for project in projects %}
+		<div class="col-sm-6 pb-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">{{ project.title }}</h5>
+					<p class="card-text">{{ project.description }} </p>
+					<p><span class="badge badge-dark">Natural Language Processing</span> <span
+							class="badge badge-dark">Computer Vision</span> </p>
+
+					<a href="#" class="btn btn-primary">Edit <i class="fa-solid fa-pen-to-square"></i> </a>
+					<a href="#" class="btn btn-light">Close </a>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		{% endcomment %}
+
 	</div>
 
 	<div class="modal fade" id="addProject" tabindex="-1" aria-labelledby="addProjectLabel" aria-hidden="true">
@@ -54,7 +80,7 @@
 				<form action="{% url 'prof_addproject' %}" method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="modal-body">
-						{{ form }}
+						{{ form|crispy }}
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% load crispy_forms_tags %} 
 <section class="p-5">
 	<div class="container">
 		<div class="row text-center g-4">
@@ -23,10 +23,10 @@
 
 					</div>
 
-					<div class="container py-5">
+					<div class="card-body">
 						<form method="POST">
 							{% csrf_token %}
-							{{ login_form }}
+							{{ login_form|crispy }}
 							<button class="btn btn-primary" type="submit">Login</button>
 						</form>
 						<br>

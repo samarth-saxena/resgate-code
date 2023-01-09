@@ -168,8 +168,13 @@ def prof_projects(request):
 	# return HttpResponse("Listings of all current projects, and add new projects")
 	if check_professor(request):
 		form = ProfAddProjectsForm()
-
-		return render(request, 'professors/prof_projects.html',{'form':form})
+		prof = Professor.objects.get(user=request.user)
+		# projects = prof.projects.get()
+		# TODO add project domains
+		return render(request, 'professors/prof_projects.html',{
+			'form':form,
+			# 'projects':projects,
+			})
 	else:
 		return redirect_user(request)
 
