@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 	# email = models.EmailField(max_length = 254)
 	is_Student = models.BooleanField(default=False)
 	is_Professor = models.BooleanField(default=False)
+	
 
 	def __str__(self):
 		return self.user.username
@@ -51,6 +52,7 @@ class Student(UserProfile):
 
 	batch = models.IntegerField(default=2022)
 	tags = models.JSONField(null=True)
+	resume = models.FileField(upload_to='uploads/%Y/%m/%d/',null=True,blank=True)
 
 	def __str__(self):
 		return self.user.username
