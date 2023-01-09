@@ -12,6 +12,9 @@ class UserProfile(models.Model):
 	is_Student = models.BooleanField(default=False)
 	is_Professor = models.BooleanField(default=False)
 
+	def __str__(self):
+		return self.user.username
+
 # Create your models here.
 class Student(UserProfile):
 
@@ -48,26 +51,38 @@ class Student(UserProfile):
 
 	batch = models.IntegerField(default=2022)
 	tags = models.JSONField(null=True)
+
+	def __str__(self):
+		return self.user.username
 	
 class Resume(models.Model):
 	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
 	student = models.ForeignKey(Student, related_name='resumes', on_delete=models.CASCADE)
 
+	def __str__(self):
+		return "Resume " + self.student.__str__()
+
 class Lab(models.Model):
 	name = models.CharField(max_length=100)
 	website = models.URLField(max_length=300)
 
+	def __str__(self):
+		return self.name
+
 class Domain(models.Model):
 	title = models.CharField(max_length=255)
-
+	
+	def __str__(self):
+		return self.title
 
 class Projects(models.Model):
-	#TODO add title
+	title = models.TextField(max_length=50,null=True)
 	description = models.TextField(max_length=5000)
 	available = models.BooleanField()
 	domain = models.ManyToManyField(Domain, related_name='projects')
-	#TODO add skills
-
+	skills = models.JSONField(null=True)
+	# TODO add domaon, skills to prof_projects.html
+	
 	# OPEN = 'O'
 	# CLOSED = 'C'
 	# STATUS_CHOICES = [
@@ -76,6 +91,9 @@ class Projects(models.Model):
 	# ]
 	# status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=OPEN)    #BooleanField().
 
+	def __str__(self):
+		return self.title
+
 class Professor(UserProfile):
 	website = models.URLField(max_length=300)
 	interests = models.JSONField(null=True)
@@ -83,6 +101,8 @@ class Professor(UserProfile):
 	lab = models.ForeignKey(Lab, related_name='profs', on_delete=models.SET_NULL,blank=False,null=True)
 	projects = models.ManyToManyField(Projects, related_name='profs')
 
+	def __str__(self):
+		return self.user.username
 
 class Application(models.Model):
 	openingDate = models.DateField()
@@ -99,3 +119,6 @@ class Application(models.Model):
 		(ACCEPTED, 'Accepted'),
 	]
 	status = models.CharField(max_length=1,choices=STATUS_CHOICES,default=PENDING)
+
+	def __str__(self):
+		return self.student.__str() + " - " + self.project.__str()
