@@ -13,7 +13,15 @@ Activate a shell in virtual environment:
 ```bash
 pipenv shell
 ```
-Install requirements:
+Install requirements (inside virtual environment):
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
+```
+
+## Data population
+Run in the following order:
+```bash
+python manage.py runscript load_labs
+python manage.py runscript load_users
+python manage.py runscript load_profdomains
 ```

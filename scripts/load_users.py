@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from portal.models import UserProfile, Student, Professor
+from django.contrib.auth.hashers import make_password
 import csv
 
 
@@ -19,6 +20,8 @@ def run():
 	Student.objects.all().delete()
 	User.objects.all().exclude(username="admin").delete()
 	for i in range(1,11):
-		user = User(username="Stud"+str(i),email="stud"+str(i)+"@gmail.com",password="alpha101")
+		user = User(username="Stud"+str(i),email="stud"+str(i)+"@gmail.com",password=make_password("alpha101"))
 		user.save()
-		Student.objects.get_or_create(user=user, is_Student=True)
+
+		stud = Student(user=user, is_Student=True, resume="")
+		stud.save()
