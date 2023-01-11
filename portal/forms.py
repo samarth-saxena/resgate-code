@@ -75,6 +75,10 @@ class ProfessorSignupForm(UserCreationForm):
 # 			user.save()
 # 		return user
 
+class StudAddResumeForm(forms.ModelForm):
+	class Meta:
+		model = Student
+		fields = ['program','branch','batch','resume']
 
 class ProfAddProjectsForm(forms.ModelForm):
 	class Meta:

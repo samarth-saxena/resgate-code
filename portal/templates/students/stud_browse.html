@@ -10,7 +10,7 @@
 			<h3 class="mb-4 pb-1">Filters</h3>
 
 			<!-- By Lab -->
-			<div class="card mb-4">
+			<!-- <div class="card mb-4">
 				<h6 class="card-header">Lab</h6>
 				<div class="list-group list-group-flush">
 					{% for color in colors %}
@@ -22,11 +22,76 @@
 					</li>
 					{% endfor %}
 				</div>
-			</div>
+			</div> -->
+			<div class="accordion" id="accordionExample">
+				<!-- By Lab -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingOne">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							Labs
+						</button>
+					</h2>
+					<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+						data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<form action="" method="post" class="lab_form">
+								<!-- <input type="hidden" name="csrfmiddlewaretoken"
+									value="YMFSkOHM6FWvR8FUn3QRpInQZTbNI2VXkklrEhmCqxLj8LZWtbj97ygp7EH4nXJb"> -->
+									{% csrf_token %}
+									<div class="mx-auto text-center">
+										{% for lab in labs %}
+										<input type="checkbox" name="lab_name" id="{{lab.name}}" value="{{lab.name}}">
+										<label for="{{lab.name}}" style="margin-right: 10px;">{{lab.name}}</label>
+										{% endfor %}
+									</div>
+								<br>
+								<div class="mx-auto text-center" style="margin-top: 10px;">
+									<button type="submit" class="btn btn-outline-primary" name="lab-submit"
+										onclick="OpenModal()">Submit</button>
+								</div>
+							</form>
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+							<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+						</div>
+					</div>
+				</div>
+				<!-- By Domain -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingTwo">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Domains
+						</button>
+					</h2>
+					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+						data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+							<form action="" method="post" class="domain_form">
+								<!-- <input type="hidden" name="csrfmiddlewaretoken"
+									value="YMFSkOHM6FWvR8FUn3QRpInQZTbNI2VXkklrEhmCqxLj8LZWtbj97ygp7EH4nXJb"> -->
+									{% csrf_token %}
+									<div class="mx-auto text-center">
+										{% for domain in domains %}
+										<input type="checkbox" name="domain_name" id="{{domain.title}}" value="{{domain.title}}">
+										<label for="{{domain.title}}" style="margin-right: 10px;">{{domain.title}}</label>
+										{% endfor %}
+									</div>
+								<br>
+								<div class="mx-auto text-center" style="margin-top: 10px;">
+									<button type="submit" class="btn btn-outline-primary" name="domain-submit"
+										onclick="OpenModal()">Submit</button>
+								</div>
+							</form>
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+							<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+						</div>
+					</div>
+				</div>
+			</div>	
 
-
-			<!-- By Domain -->
-			<div class="card mb-4">
+			<!-- By Professor -->
+			<!-- <div class="card mb-4">
 				<h6 class="card-header">Professor</h6>
 				<div class="list-group list-group-flush">
 					{% for cat in cats %}
@@ -37,11 +102,11 @@
 					</li>
 					{% endfor %}
 				</div>
-			</div>
+			</div> -->
 
 
 			<!-- By Professor -->
-			<div class="card mb-4">
+			<!-- <div class="card mb-4">
 				<h6 class="card-header">Domain</h6>
 				<div class="list-group list-group-flush">
 					{% for brand in brands %}
@@ -52,7 +117,7 @@
 					</li>
 					{% endfor %}
 				</div>
-			</div>
+			</div> -->
 
 		</div>
 

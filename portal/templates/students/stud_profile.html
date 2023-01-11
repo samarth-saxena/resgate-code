@@ -1,9 +1,7 @@
 {% extends "students/stud_base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-<head>
-
-</head>
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -15,27 +13,24 @@
       <div class="card" style="width: 18rem;">
         <img class="card-img-top" src="{% static 'portal/images/image.jpg'%}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Samarth Saxena</h5>
-          <h6 class="card-subtitle mb-2 text-muted">CSD BTech 2019</h6>
+          <h5 class="card-title">{{stud.user.username}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{stud.branch}} {{stud.program}} {{stud.batch}}</h6>
           <p><a href="mailto: samarth19328@iiitd.ac.in" class="text-decoration-none card-link">
-              samarth19328@iiitd.ac.in</a></p>
+              {{stud.user.email}}</a></p>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-decoration-underline">Tags</li>
-          <li class="list-group-item">Computer Vision, Machine Learning</li>
+          <li class="list-group-item">{{stud.tags}}</li>
         </ul>
       </div>
     </div>
 
     <div class="col-md-3">
-      <h5><label class="form-label" for="customFile">Upload Resume</label></h5>
-      <input type="file" class="form-control" id="customFile" />
-      <p class="pb-3"></p>
-
-      <ul>
-        <li> <a href="" class="text-decoration-none card-link"> Resume_DataScience </a> </li>
-        <li><a href="" class="text-decoration-none card-link"> Resume_RRS </a> </li>
-      </ul>
+      <form method="POST" enctype="multipart/form-data".>
+          {% csrf_token %}
+          {{ addresumeform|crispy }}
+          <button class="btn btn-primary" type="submit">Update profile</button>
+      </form>
     </div>
 
     <div class="col-md-6">
@@ -69,6 +64,20 @@
             </div>
           </div>
         </div>
+        {% for application in applications %}
+          <div class="col-sm-12 pb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{application.project.title}}
+                </h5>
+                <h6 class="card-text">Status: <span class="badge badge-danger">{{application.status}}</span></h6>
+                <p class="card-text">{{application.project.description}} </p>
+                <p><span class="badge badge-dark">Artificial Intelligence </span> <span
+                    class="badge badge-dark">Python</span></p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
     </div>
   </div>

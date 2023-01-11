@@ -70,7 +70,7 @@ class Mapping:
             'Circuit design and simulation': ['spice', 'ltspice', 'orcad', 'cadence'],
             'Embedded systems': ['embedded systems', 'fpga', 'vivado', 'hls', 'hardware programming'],
             'VLSI Design': ['vlsi', 'circuit', 'fabrication'],
-            'Internet of Things (IoT)': ['networks', 'sensors', 'rasberrypi', 'arduino', 'hardware']
+            'Internet of Things (IoT)': ['networks', 'sensors', 'rasberrypi', 'arduino', 'hardware','IoT']
         }
         self.SKILLS_DB = []
         self.DOMAIN_DB = []
@@ -209,7 +209,7 @@ class JSON_extract:
     def json(self):
         ans = {}
         ans["skills"] = self.get_skills()
-        ans["domains"] = self.get_domains()
+        ans["domain"] = self.get_domains()
         return ans
 
 
@@ -229,20 +229,22 @@ class Recommender:
 
     
     def get_similiarity(self,em1,em2):
-        return scipy.spatial.distance.cosine(em1.detach().numpy(),em2.detach().numpy())
+        v1 = np.squeeze(em1.detach().numpy())
+        v2 = np.squeeze(em2.detach().numpy())
+        return scipy.spatial.distance.cosine(v1,v2)
 
     
     def get_entity_embedding(self,entity):
-        dom_list = entity['domains']
+        dom_list = entity['domain']
         sk_list = entity['skills']
         
         em_dom_dict = {}
         em_sk_dict = {}
         
         for domain in dom_list:
-            em_dom_dict[domain] = self.embed_text(domain,self.model)
+            em_dom_dict[domain] = self.embed_text(domain)
         for skill in sk_list:
-            em_sk_dict[skill] = self.embed_text(skill,self.model)
+            em_sk_dict[skill] = self.embed_text(skill)
         
         return em_dom_dict,em_sk_dict
 
@@ -259,7 +261,7 @@ class Recommender:
                     user_nodes[u],
                     project_nodes[p]
                 )
-        # print(df)
+        print(df)
         cost_matrix = df.to_numpy().astype(float)
         # print(cost_matrix.shape)
         row_ind, col_ind = linear_sum_assignment(cost_matrix)
@@ -277,9 +279,9 @@ class Recommender:
         project_dom_nodes, project_skill_nodes = self.get_entity_embedding(project)
         
         domain_matching, domain_matching_cost = self.get_matching(user_dom_nodes,project_dom_nodes)
-        # print("--------------------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------")
         skill_matching, skill_matching_cost = self.get_matching(user_skill_nodes,project_skill_nodes)
-        # print("--------------------------------------------------------------------------------")
+        print("--------------------------------------------------------------------------------")
         
         print(f"Domain Matching with total cost = {domain_matching_cost}")
         print(f"Skill Matching with total cost = {skill_matching_cost}")
@@ -298,6 +300,7 @@ class Recommender:
             else: cost_dict[cost].append(project_dict)
         
         sorted_costs = sorted(list(cost_dict.keys()))
+        print(len(sorted_costs))
         max_cost = sorted_costs[-1]
         min_cost = sorted_costs[0]
         

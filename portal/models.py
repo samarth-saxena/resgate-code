@@ -48,21 +48,27 @@ class Student(UserProfile):
 		(EEE, 'EEE'),
 		(CB, 'CB'),
 	]
+	BATCH_CHOICES = [
+		(2019,'2019'),
+		(2020,'2020'),
+		(2021,'2021'),
+		(2022,'2022'),
+	]
 	branch = models.CharField(max_length=4,choices=BRANCH_CHOICES,default=CSE) 
 
-	batch = models.IntegerField(default=2022)
-	tags = models.JSONField(null=True)
-	resume = models.FileField(upload_to='uploads/%Y/%m/%d/',null=True,blank=True)
+	batch = models.IntegerField(default=2022, choices = BATCH_CHOICES)
+	tags = models.JSONField(null=True,blank=True)
+	resume = models.FileField(upload_to='resumes/%Y/%m/%d/',null=True,blank=True)
 
 	def __str__(self):
 		return self.user.username
 	
-class Resume(models.Model):
-	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
-	student = models.ForeignKey(Student, related_name='resumes', on_delete=models.CASCADE)
+# class Resume(models.Model):
+# 	file = models.FileField(upload_to='uploads/%Y/%m/%d/')
+# 	student = models.ForeignKey(Student, related_name='resumes', on_delete=models.CASCADE)
 
-	def __str__(self):
-		return "Resume " + self.student.__str__()
+# 	def __str__(self):
+# 		return "Resume " + self.student.__str__()
 
 class Lab(models.Model):
 	name = models.CharField(max_length=100)
@@ -78,11 +84,11 @@ class Domain(models.Model):
 		return self.title
 
 class Projects(models.Model):
-	title = models.TextField(max_length=50,null=True)
+	title = models.TextField(max_length=300,null=True)
 	description = models.TextField(max_length=5000)
 	available = models.BooleanField()
 	domain = models.ManyToManyField(Domain, related_name='projects')
-	skills = models.JSONField(null=True)
+	skills = models.TextField(max_length=1000,null=True,blank=True)
 	# TODO add domaon, skills to prof_projects.html
 	
 	# OPEN = 'O'
@@ -110,7 +116,7 @@ class Application(models.Model):
 	openingDate = models.DateField()
 	student = models.ForeignKey(Student, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
 	project = models.ForeignKey(Projects, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
-	resume = models.ForeignKey(Resume, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
+	# resume = models.ForeignKey(Resume, related_name='applications', on_delete=models.CASCADE,blank=False,null=True)
 
 	PENDING = 'P'
 	REJECTED = 'R'
